@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update, :edit]
 
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to user_path(current_user.id), notice: 'Welcome! You have signed up successfully.'
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     @books = @user.books
