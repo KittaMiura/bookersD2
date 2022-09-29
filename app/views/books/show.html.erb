@@ -32,12 +32,50 @@
 
             <% end %>
           </td>
+            <td>
+              <p class="caption"><%= "コメント数：#{@book.comments.count}" %></p>
+            </td>
             <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
             <% end %>
         </tr>
       </table>
+
+      <div>
+        <table>
+          <% @comments.each do |comment| %>
+          <tr>
+            <td><%= image_tag comment.user.get_profile_image, size:"50x50" %><br>
+                <%= comment.user.name %><br>
+                <%= comment.created_at.strftime('%Y/%m/%d') %>
+            </td>
+            <td><%= comment.comment %></td>
+            <td>
+              <% if comment.user == current_user %>
+                <%= link_to "Destroy", book_comment_path(comment.book, comment), method: :delete, class: "btn-sm btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+
+
+
+
+      <div>
+
+        <%= form_with(model:[@book, @comment], local: true) do |f| %>
+        <div>
+          <%= f.text_area :comment, :size=>"60x3",placeholder: "コメントする" %>
+        </div>
+        <div>
+          <%= f.submit "送信する" %>
+        </div>
+        <% end %>
+
+
+      </div>
     </div>
   </div>
 </div>
