@@ -43,6 +43,7 @@
       </table>
 
       <div>
+
         <table>
           <% @comments.each do |comment| %>
           <tr>
@@ -64,18 +65,17 @@
 
 
       <div>
-
         <%= form_with(model:[@book, @comment], local: true) do |f| %>
         <div>
           <%= f.text_area :comment, :size=>"60x3",placeholder: "コメントする" %>
         </div>
         <div>
           <%= f.submit "送信する" %>
-        </div>
-        <% end %>
-
-
       </div>
+        <% end %>
+      </div>
+
+
     </div>
   </div>
 </div>
