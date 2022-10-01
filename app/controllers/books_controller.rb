@@ -8,11 +8,16 @@ class BooksController < ApplicationController
     @user = User.find(@book.user.id)
     @comment = Comment.new
     @comments = @book.comments
+    @following_users = @user.following_user
+    @follower_users = @user.follower_user
   end
 
   def index
     @books = Book.all
     @book = Book.new
+    @user = current_user
+    @following_users = @user.following_user
+    @follower_users = @user.follower_user
   end
 
   def create
