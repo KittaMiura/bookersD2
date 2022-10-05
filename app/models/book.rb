@@ -16,5 +16,19 @@ class Book < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+  
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @book = Book.where("title LIKE?","#{word}")
+    elsif search == "forward_match"
+      @book = Book.where("title LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @book = Book.where("title LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @book = Book.where("title LIKE?","%#{word}%")
+    else
+      @book = Book.all
+    end
+  end
 
 end
